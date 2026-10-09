@@ -1,7 +1,8 @@
 @extends('partials.layout')
 @section('content')
-    <div class="container mx-auto flex-col gap-2">
+    <div class="container mx-auto">
         <h1> Home page </h1>
+        <div class="grid grid-cols-4 gap-2">
         @foreach ($posts as $post)
             <div class="card bg-base-100 shadow-sm">
                 {{-- <figure>
@@ -16,5 +17,6 @@
                 </div>
             </div>
         @endforeach
+        </div>
     </div>
 @endsection
