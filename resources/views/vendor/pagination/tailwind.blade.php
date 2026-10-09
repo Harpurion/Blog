@@ -47,11 +47,11 @@
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <button class="btn btn-disabled" disabled aria-disabled="true" aria-label="{{ __('pagination.previous') }}" aria-hidden="true">
-                        🢔
+                        ⤊
                     </button>
                 @else
                     <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="btn" aria-label="{{ __('pagination.previous') }}">
-                        🢔
+                        ⤊
                     </a>
                 @endif
 
