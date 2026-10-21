@@ -1,4 +1,5 @@
- @section('content')
+@extends('partials.layout')
+@section('content')
  <div class="container mx-auto">
         <h1> {{ __('Dashboard page') }} </h1>
         {{ $posts->links() }}
