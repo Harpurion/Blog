@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PublicController extends Controller
 {
-    public function index(Request $request){
+    public function index() {
         $posts = Post::latest()->simplePaginate(16);
         return view('welcome', compact('posts'));
     }
 
-    public function buttons(){
+    public function user(User $user) {
+        $posts = $user->posts()->latest()->simplePaginate(16);
+        return view('welcome', compact('posts'));
+    }
+
+    public function buttons() {
         return view('buttons');
     }
 
-    public function post(Post $post){
+    public function post(Post $post) {
         return view('post', compact('post'));
     }
 }
