@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Image;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $tags = Tag::all();
+        return view('posts.create', compact('tags'));
     }
 
     /**
@@ -35,14 +37,13 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-
         $post = new Post($request->validated());
         // $post->title = $request->input('title');
         // $post->body = $request->input('body');
         $post->user()->associate(Auth::user());
         $post->save();
-        if($request->file('image')) {
-            $image = $request->file('image')->store('', ['disk' => 'public']);
+        foreach($request->file('images') ?? [] as $file) {
+            $image = $file->store('', ['disk' => 'public']);
             $url = Storage::url($image);
 
             $image = new Image();
@@ -50,6 +51,7 @@ class PostController extends Controller
             $image->post()->associate($post);
             $image->save();
         }
+        $post->tags()->attach($request->input('tags'));
         return redirect()->route('posts.index');
     }
 

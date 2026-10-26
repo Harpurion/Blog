@@ -23,7 +23,7 @@ class PostFactory extends Factory
         if(rand(0,9)){
             $updated = $created;
         }
-    
+
         return [
             'title' => fake()->sentence(),
             'body' => fake()->paragraphs(6, true),
