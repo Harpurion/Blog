@@ -17,10 +17,10 @@ class PostFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {   
+    {
         $created = Carbon::create(fake()->dateTimeBetween());
         $updated = fake()->dateTimeBetween($created, Carbon::create($created)->addDays(3));
-        if(rand(0,9)){
+        if (rand(0, 9)) {
             $updated = $created;
         }
 

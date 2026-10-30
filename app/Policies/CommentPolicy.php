@@ -1,40 +1,65 @@
 <?php
 
-namespace App\Models;
+namespace App\Policies;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Comment;
+use App\Models\User;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class CommentPolicy
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return false;
+    }
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Determine whether the user can view the model.
      */
-    protected function casts(): array
+    public function view(User $user, Comment $comment): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return false;
     }
 
-    public function posts() {
-        return $this->hasMany(Post::class);
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
+    {
+        return false;
     }
 
-    public function comments() {
-        return $this->hasMany(Comment::class);
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Comment $comment): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Comment $comment): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore(User $user, Comment $comment): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Comment $comment): bool
+    {
+        return false;
     }
 }

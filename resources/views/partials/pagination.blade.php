@@ -46,12 +46,14 @@
             <div class="join">
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
-                    <button class="btn btn-disabled" disabled aria-disabled="true" aria-label="{{ __('pagination.previous') }}" aria-hidden="true">
-                        ⤊
+                    <button class="btn btn-disabled" disabled aria-disabled="true"
+                        aria-label="{{ __('pagination.previous') }}" aria-hidden="true">
+                        🢔
                     </button>
                 @else
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="btn" aria-label="{{ __('pagination.previous') }}">
-                        ⤊
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="btn"
+                        aria-label="{{ __('pagination.previous') }}">
+                        🢔
                     </a>
                 @endif
 
@@ -59,17 +61,17 @@
                 @foreach ($elements as $element)
                     {{-- "Three Dots" Separator --}}
                     @if (is_string($element))
-                        <button class="join-item btn btn-disabled"...> </button>
+                        <button class="join-item btn btn-disabled">...</button>
                     @endif
 
                     {{-- Array Of Links --}}
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                <button class="join-item btn btn-primary" aria-current="page"> {{ $page }} </button>
+                                <button class="join-item btn btn-primary"
+                                    aria-current="page">{{ $page }}</button>
                             @else
-                                <a href="{{ $url }}"
-                                    class="join-item btn"
+                                <a href="{{ $url }}" class="join-item btn"
                                     aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
                                     {{ $page }}
                                 </a>
@@ -82,12 +84,12 @@
                 @if ($paginator->hasMorePages())
                     <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="btn"
                         aria-label="{{ __('pagination.next') }}">
-                        ⤊
+                        🢖
                     </a>
                 @else
                     <button class="btn btn-disabled" disabled aria-disabled="true"
-                     aria-label="{{ __('pagination.next') }}" aria-hidden="true">
-                        ⤊
+                        aria-label="{{ __('pagination.next') }}" aria-hidden="true">
+                        🢖
                     </button>
                 @endif
             </div>

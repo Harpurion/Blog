@@ -20,9 +20,9 @@ return new class extends Migration
         });
         // pivot-table or intermediate table, (vahe tabel)
         Schema::create('post_tag', function (Blueprint $table) {
-           $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
-           $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
-           $table->unique(['post_id', 'tag_id']);
+            $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
+            $table->unique(['post_id', 'tag_id']);
         });
     }
 
