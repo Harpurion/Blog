@@ -1,25 +1,33 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+@extends('partials.layout')
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('content')
+    <main class="container mx-auto max-w-lg p-6">
+        <form method="POST" action="{{ route('password.email') }}" class="card bg-base-300 shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title">{{ __('Forgot your password?') }}</h1>
+                <p>{{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</p>
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+                @if (session('status'))
+                    <div role="alert" class="alert alert-success">
+                        <span>{{ session('status') }}</span>
+                    </div>
+                @endif
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                @csrf
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">{{ __('Email') }}</legend>
+                    <input id="email" name="email" type="email" value="{{ old('email') }}"
+                        class="input w-full @error('email') input-error @enderror" required autofocus autocomplete="username">
+                    @error('email')
+                        <p class="label text-error">{{ $message }}</p>
+                    @enderror
+                </fieldset>
+
+                <div class="card-actions justify-end">
+                    <button type="submit" class="btn btn-primary">{{ __('Email Password Reset Link') }}</button>
+                </div>
+            </div>
+        </form>
+    </main>
+@endsection

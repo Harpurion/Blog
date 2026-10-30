@@ -1,8 +1,11 @@
 @extends('partials.layout')
 @section('content')
     <div class="container mx-auto">
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        @if (session('status'))
+            <div role="alert" class="alert alert-info mb-4">
+                <span>{{ session('status') }}</span>
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('login') }}" class="card bg-base-300 shadow-sm w-2/3 mx-auto p-3">
             @csrf

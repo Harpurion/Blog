@@ -1,39 +1,45 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+@extends('partials.layout')
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+@section('content')
+    <main class="container mx-auto max-w-lg p-6">
+        <form method="POST" action="{{ route('password.store') }}" class="card bg-base-300 shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title">{{ __('Reset Password') }}</h1>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                @csrf
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">{{ __('Email') }}</legend>
+                    <input id="email" name="email" type="email" value="{{ old('email', $request->email) }}"
+                        class="input w-full @error('email') input-error @enderror" required autofocus autocomplete="username">
+                    @error('email')
+                        <p class="label text-error">{{ $message }}</p>
+                    @enderror
+                </fieldset>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">{{ __('Password') }}</legend>
+                    <input id="password" name="password" type="password"
+                        class="input w-full @error('password') input-error @enderror" required autocomplete="new-password">
+                    @error('password')
+                        <p class="label text-error">{{ $message }}</p>
+                    @enderror
+                </fieldset>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">{{ __('Confirm Password') }}</legend>
+                    <input id="password_confirmation" name="password_confirmation" type="password"
+                        class="input w-full @error('password_confirmation') input-error @enderror" required autocomplete="new-password">
+                    @error('password_confirmation')
+                        <p class="label text-error">{{ $message }}</p>
+                    @enderror
+                </fieldset>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <div class="card-actions justify-end">
+                    <button type="submit" class="btn btn-primary">{{ __('Reset Password') }}</button>
+                </div>
+            </div>
+        </form>
+    </main>
+@endsection

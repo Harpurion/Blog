@@ -1,27 +1,27 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
+@extends('partials.layout')
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
+@section('content')
+    <main class="container mx-auto max-w-lg p-6">
+        <form method="POST" action="{{ route('password.confirm') }}" class="card bg-base-300 shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title">{{ __('Confirm Password') }}</h1>
+                <p>{{ __('This is a secure area of the application. Please confirm your password before continuing.') }}</p>
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
+                @csrf
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">{{ __('Password') }}</legend>
+                    <input id="password" name="password" type="password"
+                        class="input w-full @error('password') input-error @enderror" required autocomplete="current-password">
+                    @error('password')
+                        <p class="label text-error">{{ $message }}</p>
+                    @enderror
+                </fieldset>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <div class="card-actions justify-end">
+                    <button type="submit" class="btn btn-primary">{{ __('Confirm') }}</button>
+                </div>
+            </div>
+        </form>
+    </main>
+@endsection
